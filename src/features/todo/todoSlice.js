@@ -1,9 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { getToDoList } from '../../utils/localStorageManagment';
 
 export const todoSlice = createSlice({
     name: `todo`,
     initialState: {
-        value: []
+        value: getToDoList(),
     },
     reducers: {
         add: (state, action) => {
