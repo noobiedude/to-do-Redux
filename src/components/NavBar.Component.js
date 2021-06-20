@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { setUser } from '../utils/localStorageManagment';
 import styled from 'styled-components';
 import * as Colors from '../res/colors';
+import MenuIcon from '@material-ui/icons/Menu';
 
 const mock_user = {
     username: `bob`,
@@ -23,10 +24,12 @@ const NavBar = () => {
 
     return(
         <Container>
+        <HamburgerDiv><MenuIcon style={{ color: `${Colors.WHITE}`}}/></HamburgerDiv>
+        <TitleDiv>Todoist</TitleDiv>
         {isSignedIn ? 
-        <AuthButton backgroundColor={Colors.DARK_BLUE} color={Colors.BACKGROUND_COLOR_MAIN} onClick={(e) => dispatch(signOut())}>Sign Out</AuthButton> 
+        <LogoutButton  onClick={(e) => dispatch(signOut())}>Log Out</LogoutButton> 
         : 
-        <AuthButton border={Colors.DARK_BLUE} color={Colors.DARK_BLUE} onClick={(e) => dispatch(signIn(mock_user))}>Log In</AuthButton>}
+        <LoginButton  backgroundColor={Colors.BLUE_PURPLE} color={Colors.BACKGROUND_COLOR_MAIN} onClick={(e) => dispatch(signIn(mock_user))}>Log In</LoginButton>}
         </Container>
         
     )
@@ -34,8 +37,12 @@ const NavBar = () => {
 
 const Container = styled.div`
     width: 100%;
-    height: 80px;
-    background-color: ${Colors.BACKGROUND_COLOR_MAIN};
+    height: 50px;
+    background-color: ${Colors.NAV_BAR_GREEN};
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 0 0 8px 8px;
 `;
 
 const AuthButton = styled.button`
@@ -55,5 +62,36 @@ const AuthButton = styled.button`
     border-width: ${props => props.border ? `3px` : `none`};
     font-weight: bold;
     white-space: nowrap;
+`;
+
+const TitleDiv = styled.div`
+    font-size: 1.5rem;
+    color: ${Colors.WHITE};
+    font-weight: 600;
+`;
+
+const LoginButton = styled.button`
+    white-space: nowrap;
+    background-color: transparent;
+    border: 2px solid ${Colors.WHITE};
+    color: ${Colors.WHITE};
+    font-size: 1rem;
+    margin: 0 1rem;
+    padding: .3rem .6rem;
+    border-radius: 4px;
+    font-weight: 600;
+`;
+
+const LogoutButton = styled.button`
+    white-space: nowrap;
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-size: 1rem;
+    margin: 0 1rem;
+`;
+
+const HamburgerDiv = styled.div`
+    margin: 0 1rem;
 `;
 export default NavBar;
