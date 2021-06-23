@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { setToDoList } from '../utils/localStorageManagment';
 
 
-const ToDo = () => {
+const ToDoList = () => {
     const todos = useSelector((state) => state.todo.value);
     const isSignedIn = useSelector((state) => state.user.value.isSignedIn);
     const user = useSelector((state) => state.user.value);
@@ -23,31 +23,6 @@ const ToDo = () => {
     
     return (
         <div>
-            {isSignedIn ? 
-            <div>
-                Hello {user.username}
-                
-            </div>
-            :
-            <div>
-            <div>
-                You are not connected
-            </div>
-           
-            </div>
-            }
-            {isSignedIn ? <div>
-                <input 
-                    type='text' 
-                    placeholder="add your todo here!" 
-                    onChange={(e) => setInputToDoText(e.target.value)}
-                    value={inputToDoText}>
-                </input>
-                <button onClick={(e) => dispatch(add(inputToDoText))}>Add</button>
-            </div>
-            :
-            <p>You can only view Todos. If you want to create one you must sign in</p>}
-            <h3>ToDo</h3>
             <div>
                 {todos.length === 0 ? 
                 <div>
@@ -65,4 +40,4 @@ const ToDo = () => {
     )
 }
 
-export default ToDo;
+export default ToDoList;

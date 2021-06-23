@@ -13,7 +13,7 @@ const mock_user = {
 };
 
 
-const NavBar = () => {
+const NavBar = ({ setShowAddToDoInput, setInputToDoText }) => {
     const isSignedIn = useSelector((state) => state.user.value.isSignedIn);
     const dispatch = useDispatch();
     const user = useSelector((state) => state.user.value);
@@ -27,7 +27,7 @@ const NavBar = () => {
         <HamburgerDiv><MenuIcon style={{ color: `${Colors.WHITE}`}}/></HamburgerDiv>
         <TitleDiv>Todoist</TitleDiv>
         {isSignedIn ? 
-        <LogoutButton  onClick={(e) => dispatch(signOut())}>Log Out</LogoutButton> 
+        <LogoutButton  onClick={(e) => {setInputToDoText(``); setShowAddToDoInput(false); dispatch(signOut())}}>Log Out</LogoutButton> 
         : 
         <LoginButton  backgroundColor={Colors.BLUE_PURPLE} color={Colors.BACKGROUND_COLOR_MAIN} onClick={(e) => dispatch(signIn(mock_user))}>Log In</LoginButton>}
         </Container>
