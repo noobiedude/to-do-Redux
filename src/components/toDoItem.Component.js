@@ -5,10 +5,9 @@ import styled from 'styled-components';
 import * as Colors from '../res/colors';
 import CheckIcon from '@material-ui/icons/Check';
 
-const ToDoItem = ({ todo, idx, id, setShowModal, setIdxModal }) => {
+const ToDoItem = ({ todo, idx, id, setShowModal, setIdxModal, isModal, text, setText }) => {
     const dispatch = useDispatch();
     const isSignedIn = useSelector((state) => state.user.value.isSignedIn);
-    const [text, setText] = useState(todo.text);
     const len = useSelector((state) => state.todo.value.length);
     const completedToDos = useSelector((state) => state.todo.completeToDos);
 
@@ -16,18 +15,20 @@ const ToDoItem = ({ todo, idx, id, setShowModal, setIdxModal }) => {
         <ToDoContainer isCompleted={todo.isCompleted} borderColor={Colors.COMPLETED_GREEN}>
             {todo.isCompleted && <CompletedDiv>Completed</CompletedDiv>}
             <ToDoText>
-            {isSignedIn ? 
-            // <input type={text} value={text} onChange={(e) => setText(e.target.value)}></input> 
-            <p onClick={(e) => {setIdxModal(idx); setShowModal(true)}} >{text}</p> 
+            {isModal?
+                <ToDoInput type={`text`} value={text} onChange={(e) => setText(e.target.value)}></ToDoInput> 
+                :
+            isSignedIn ? 
+            
+            <ToDoP onClick={(e) => {setIdxModal(idx); setShowModal(true)}} >{todo.text}</ToDoP> 
             :
-            <p>{text}</p>
+            <p>{todo.text}</p>
             }
             </ToDoText>
             {isSignedIn ? 
             <span>
-                <CompleteButton onClick={(e) => {dispatch(complete({idx, todo})); dispatch(swap({idx1: idx, idx2: len - 1 - completedToDos}))}}><CheckIcon></CheckIcon></CompleteButton>
-                <button onClick={(e) => dispatch(remove({idx, todo}))}>Delete</button>
-                <button onClick={e => dispatch(edit({idx, todo, editedToDo: text}))}>Edit</button>
+                {!todo.isCompleted && <CompleteButton onClick={(e) => {dispatch(complete({idx, todo})); dispatch(swap({idx1: idx, idx2: len - 1 - completedToDos}))}}><CheckIcon></CheckIcon></CompleteButton>
+            }
             </span>
             :
             ``
@@ -49,11 +50,15 @@ const ToDoContainer = styled.div`
     border-radius: 8px;
     border: ${(props) => props.isCompleted ? `2px solid ${props.borderColor}` : `none`};
     justify-content: space-between;
+    &:hover{
+        cursor: pointer;
+    }
 `;
 
 const ToDoText = styled.div`
     padding-left: 1rem;
     flex: 1;
+    display: flex;
 `;
 
 const CompletedDiv = styled.div`
@@ -75,4 +80,16 @@ const CompleteButton = styled.button`
     border: none;
     
 `;
+
+const ToDoInput = styled.input`
+    border: none;
+    font-size: 1.2rem;
+    border-radius: 8px;
+    flex: 1;
+`;
+
+const ToDoP = styled.p`
+    flex: 1;
+`;
 export default ToDoItem;
+

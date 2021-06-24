@@ -22,10 +22,10 @@ function App() {
   return (
     <div className="App">
       <AppContainer>
-      {showModal && <ModalContainer><Modal idxModal={idxModal} setShowModal={setShowModal} setIdxModal={setIdxModal}></Modal></ModalContainer>}
-      {showModal ? <Container> <BlurContainer />
+       {showModal ? <Container> <BlurContainer />
       <NavBar setShowAddToDoInput={setShowAddToDoInput} setInputToDoText={setInputToDoText}></NavBar>
       <ToDoContainer>
+      
         <TitleSection>
           <Title>My todos</Title>
           {isSignedIn && !showAddToDoInput && <AddToDo onClick={(e) => setShowAddToDoInput(true)}>+</AddToDo>}
@@ -42,6 +42,8 @@ function App() {
                 <button onClick={(e) => {setInputToDoText(``); setShowAddToDoInput(false)}}>Cancel</button>
             </div>}
          </AddToDoSection>
+         <ModalContainer className={`modal-container`}><Modal idxModal={idxModal} setShowModal={setShowModal} setIdxModal={setIdxModal}></Modal></ModalContainer>
+     
         <ToDoList setShowModal={setShowModal} setIdxModal={setIdxModal}></ToDoList>
         
         
@@ -145,9 +147,10 @@ const ModalContainer = styled.div`
   left: 0;
   bottom: 0;
   height: ${modalHeight}px;
-  width: 100%;
   background-color: ${Colors.MODAL_GREEN};
   z-index: 10;
+  width: 100%;
+  display: flex;
 `;
 
 export default App;
