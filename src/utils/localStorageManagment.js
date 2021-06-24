@@ -30,4 +30,12 @@ function getUser(){
 function deleteUser(){
     localStorage.removeItem(USER_KEY);
 }
-export { setToDoList, getToDoList, setUser, getUser, deleteUser };
+
+function getNumCompletedToDos(){
+    const todos = getToDoList();
+    let completededToDos = 0;
+    todos.filter(todo => todo.isCompleted ? completededToDos++ : ``);
+    return completededToDos;
+}
+
+export { setToDoList, getToDoList, setUser, getUser, deleteUser, getNumCompletedToDos };

@@ -1,21 +1,15 @@
 import { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux'
-import { add } from '../features/todo/todoSlice';
+import { useSelector } from 'react-redux'
 import ToDoItem from './toDoItem.Component';
 import { v4 as uuidv4 } from 'uuid';
 import { setToDoList } from '../utils/localStorageManagment';
-
+import Modal from './Modal.component';
 
 const ToDoList = () => {
     const todos = useSelector((state) => state.todo.value);
-    const isSignedIn = useSelector((state) => state.user.value.isSignedIn);
-    const user = useSelector((state) => state.user.value);
-    const dispatch = useDispatch();
-    const [inputToDoText, setInputToDoText] = useState('');
-    
+    const [showModal, setShowModal] = useState(false);
+    const [idxModal, setIdxModal] = useState(undefined);
     useEffect(() => {
-        console.log(todos);
-        setInputToDoText('');
         setToDoList(todos);
     }, [todos]);
 
@@ -32,9 +26,10 @@ const ToDoList = () => {
                 <div>{todos.map((todo, idx) => {
                     const uniqueKey = uuidv4();
                     return(
-                    <ToDoItem key={uniqueKey} todo={todo} idx={idx} id={uniqueKey}></ToDoItem>
+                    <ToDoItem key={uniqueKey} todo={todo} idx={idx} id={uniqueKey} setShowModal={setShowModal} setIdxModal={setIdxModal}></ToDoItem>
                     );
                 })}</div>}
+                {showModal && <Modal idxModal={idxModal}></Modal>}
             </div>
         </div>
     )
