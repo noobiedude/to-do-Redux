@@ -3,12 +3,10 @@ import { useSelector } from 'react-redux'
 import ToDoItem from './toDoItem.Component';
 import { v4 as uuidv4 } from 'uuid';
 import { setToDoList } from '../utils/localStorageManagment';
-import Modal from './Modal.component';
 
-const ToDoList = () => {
+const ToDoList = ({setShowModal, setIdxModal}) => {
     const todos = useSelector((state) => state.todo.value);
-    const [showModal, setShowModal] = useState(false);
-    const [idxModal, setIdxModal] = useState(undefined);
+    
     useEffect(() => {
         setToDoList(todos);
     }, [todos]);
@@ -29,7 +27,6 @@ const ToDoList = () => {
                     <ToDoItem key={uniqueKey} todo={todo} idx={idx} id={uniqueKey} setShowModal={setShowModal} setIdxModal={setIdxModal}></ToDoItem>
                     );
                 })}</div>}
-                {showModal && <Modal idxModal={idxModal}></Modal>}
             </div>
         </div>
     )

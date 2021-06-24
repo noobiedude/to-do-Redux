@@ -1,6 +1,8 @@
-const Modal = ({ idxModal }) => {
+const Modal = ({ idxModal, setShowModal, setIdxModal }) => {
     return(
-        <div>{idxModal}</div>
+        <div>{idxModal}
+        <button onClick={(e) => {setShowModal(false); setIdxModal(undefined)}}>Cancel</button>
+        </div>
     )
 }
 
