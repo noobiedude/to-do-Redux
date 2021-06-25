@@ -45,24 +45,6 @@ const Container = styled.div`
     border-radius: 0 0 8px 8px;
 `;
 
-const AuthButton = styled.button`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 8rem;
-    height: 3.5rem;
-    margin-top: .5rem;
-    background-color: ${props => props.backgroundColor || `transparent`};
-    color: ${props => props.color || Colors.LIGHT_BLUE};
-    padding: 1rem 2rem;
-    border-radius: 8px;
-    font-size: 1rem;
-    letter-spacing: 1px;
-    border-color: ${props => props.border || `none`};
-    border-width: ${props => props.border ? `3px` : `none`};
-    font-weight: bold;
-    white-space: nowrap;
-`;
 
 const TitleDiv = styled.div`
     font-size: 1.5rem;

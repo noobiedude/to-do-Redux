@@ -1,6 +1,5 @@
-import { remove, edit, complete, swap } from '../features/todo/todoSlice';
+import { complete, swap } from '../features/todo/todoSlice';
 import { useDispatch, useSelector } from 'react-redux'
-import {useState} from 'react';
 import styled from 'styled-components';
 import * as Colors from '../res/colors';
 import CheckIcon from '@material-ui/icons/Check';
