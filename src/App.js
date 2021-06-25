@@ -97,7 +97,7 @@ const Container = styled.div`
 const BlurContainer = styled.div`
   display: flex;
   flex-direction: column;
-  position: absolute;
+  position: fixed;
   left: 0;
   top: 0;
   flex: 1;
@@ -143,7 +143,7 @@ const AddToDoSection = styled.section`
 `;
 
 const ModalContainer = styled.div`
-  position: absolute;
+  position: fixed;
   left: 0;
   bottom: 0;
   height: ${modalHeight}px;
