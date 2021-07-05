@@ -3,7 +3,6 @@ import * as Colors from '../res/colors';
 import {ReactComponent as DeleteSVG} from '../res/SVG/deleteSVG.svg';
 import { useDispatch, useSelector } from "react-redux";
 import { removeCompletedTodos } from "../features/todo/todoSlice";
-import "./deleteModal.css";
 
 const DeleteModal = ({ setShowDeleteModal }) => {
     const todos = useSelector((state) => state.todo.value);
