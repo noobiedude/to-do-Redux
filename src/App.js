@@ -3,11 +3,12 @@ import './App.css';
 import NavBar from './components/NavBar.Component';
 import ToDoList  from './components/toDoList.Component';
 import * as Colors from './res/colors';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux'
 import { add } from './features/todo/todoSlice';
 import Modal from './components/Modal.component';
+import DeleteIcon from '@material-ui/icons/Delete';
+import DeleteModal from './components/DeleteModal.component';
 
 const modalHeight = 350;
 
@@ -18,11 +19,14 @@ function App() {
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
   const [idxModal, setIdxModal] = useState(undefined);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
  
   return (
     <div className="App">
       <AppContainer>
-       {showModal ? <Container> <BlurContainer />
+       {showModal ? 
+       //background
+       <Container> <BlurContainer />
       <NavBar setShowAddToDoInput={setShowAddToDoInput} setInputToDoText={setInputToDoText}></NavBar>
       <ToDoContainer>
       
@@ -42,6 +46,7 @@ function App() {
                 <button onClick={(e) => {setInputToDoText(``); setShowAddToDoInput(false)}}>Cancel</button>
             </div>}
          </AddToDoSection>
+        
          <ModalContainer className={`modal-container`}><Modal idxModal={idxModal} setShowModal={setShowModal} setIdxModal={setIdxModal}></Modal></ModalContainer>
      
         <ToDoList setShowModal={setShowModal} setIdxModal={setIdxModal}></ToDoList>
@@ -70,7 +75,8 @@ function App() {
             </div>}
          </AddToDoSection>
         <ToDoList setShowModal={setShowModal} setIdxModal={setIdxModal}></ToDoList>
-        
+        {isSignedIn && <RemoveCompletedTasksButton onClick={(e) => {setShowDeleteModal(true)}}> <DeleteIcon style={{marginRight: `.2rem`}}/>Remove completed tasks</RemoveCompletedTasksButton>}
+        {showDeleteModal && <DeleteModal setShowDeleteModal={setShowDeleteModal}></DeleteModal>}
         
       </ToDoContainer>
       </Container>
@@ -116,6 +122,9 @@ const ToDoContainer = styled.div`
   flex: 1;
   position: relative;
   z-index: 0;
+  padding-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
 `;
 
 const Title = styled.p`
@@ -151,6 +160,23 @@ const ModalContainer = styled.div`
   z-index: 10;
   width: 100%;
   display: flex;
+`;
+
+const RemoveCompletedTasksButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  background-color: ${Colors.RED};
+  color: ${Colors.WHITE};
+  border: none;
+  border-radius: 8px;
+  width: 13rem;
+  padding: 0 1rem;
+  font-size: .8rem;
+  white-space: nowrap;
+  font-weight: 600;
+  align-self: flex-end;
 `;
 
 export default App;

@@ -30,10 +30,14 @@ export const todoSlice = createSlice({
             res[action.payload.idx2] = aux;
             state.value = res;
         },
+        removeCompletedTodos: (state, action) => {
+            state.value.splice(action.payload.idx, action.payload.count);
+            state.completeToDos -= action.payload.count;
+        },
     },
 });
 
-export const { add, remove, edit, complete, swap } = todoSlice.actions;
+export const { add, remove, edit, complete, swap, removeCompletedTodos } = todoSlice.actions;
 
 export default todoSlice.reducer;
 
