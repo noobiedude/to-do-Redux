@@ -21,6 +21,7 @@ function App() {
   const [idxModal, setIdxModal] = useState(undefined);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   let numCompletedTodos = useSelector((state) => state.todo.completeToDos);
+  console.log(numCompletedTodos);
   return (
     <div className="App">
       <AppContainer>
@@ -75,8 +76,8 @@ function App() {
             </div>}
          </AddToDoSection>
         <ToDoList setShowModal={setShowModal} setIdxModal={setIdxModal}></ToDoList>
-        {isSignedIn && <RemoveCompletedTasksButton onClick={(e) => {setShowDeleteModal(true)}}> <DeleteIcon style={{marginRight: `.2rem`}}/>Remove completed tasks</RemoveCompletedTasksButton>}
-        {showDeleteModal && numCompletedTodos && <DeleteModal setShowDeleteModal={setShowDeleteModal}></DeleteModal>}
+        {isSignedIn && numCompletedTodos !== 0 && <RemoveCompletedTasksButton onClick={(e) => {setShowDeleteModal(true)}}> <DeleteIcon style={{marginRight: `.2rem`}}/>Remove completed tasks</RemoveCompletedTasksButton>}
+        {showDeleteModal  && <DeleteModal setShowDeleteModal={setShowDeleteModal}></DeleteModal>}
         
       </ToDoContainer>
       </Container>
