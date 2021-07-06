@@ -1,9 +1,8 @@
 import styled from "styled-components";
 import * as Colors from '../res/colors';
-// import {ReactComponent as DeleteSVG} from '../res/SVG/deleteSVG.svg';
 import { useDispatch, useSelector } from "react-redux";
 import { removeCompletedTodos } from "../features/todo/todoSlice";
-import '../App.css';
+import DeleteSVG from '../delete.svg';
 
 const DeleteModal = ({ setShowDeleteModal }) => {
     const todos = useSelector((state) => state.todo.value);
@@ -16,7 +15,7 @@ const DeleteModal = ({ setShowDeleteModal }) => {
         <ModalContent>
             
             {/* <DeleteSVG /> */}
-            
+            <img src={DeleteSVG} alt={`remove img`}></img>
 
             <ModalTitle>Are you sure about that?</ModalTitle>
             <TextParagraph>Completed tasks will be removed</TextParagraph>
