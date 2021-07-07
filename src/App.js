@@ -146,6 +146,9 @@ const AddToDo = styled.button`
   background-color: #C4C4C4;
   border: none;
   font-size: 2rem;
+  &:hover{
+    cursor: pointer;
+  }
 `;
 
 const AddToDoSection = styled.section`
@@ -178,6 +181,9 @@ const RemoveCompletedTasksButton = styled.button`
   white-space: nowrap;
   font-weight: 600;
   align-self: flex-end;
+  &:hover{
+    cursor: pointer;
+  }
 `;
 
 export default App;

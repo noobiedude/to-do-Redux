@@ -62,6 +62,9 @@ const LoginButton = styled.button`
     padding: .3rem .6rem;
     border-radius: 4px;
     font-weight: 600;
+    &:hover{
+    cursor: pointer;
+  }
 `;
 
 const LogoutButton = styled.button`
@@ -71,6 +74,9 @@ const LogoutButton = styled.button`
     color: white;
     font-size: 1rem;
     margin: 0 1rem;
+    &:hover{
+    cursor: pointer;
+  }
 `;
 
 const HamburgerDiv = styled.div`

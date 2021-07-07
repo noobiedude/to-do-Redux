@@ -69,6 +69,9 @@ const CancelButton = styled.button`
     background: none;
     font-weight: 600;
     margin-bottom: 1rem;
+    &:hover{
+    cursor: pointer;
+  }
     
 `;
 
@@ -83,6 +86,9 @@ const RemoveButton = styled.button`
     border: none;
     padding: 1rem 2rem;
     margin-bottom: 1rem;
+    &:hover{
+    cursor: pointer;
+  }
 `;
 
 const TextParagraph = styled.p`

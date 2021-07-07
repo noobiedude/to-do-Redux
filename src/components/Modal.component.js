@@ -49,6 +49,9 @@ const EditButton = styled.button`
     border: none;
     margin-bottom: 1rem;
     font-weight: 600;
+    &:hover{
+    cursor: pointer;
+  }
 `;
 
 const RemoveButton = styled.button`
@@ -62,6 +65,9 @@ const RemoveButton = styled.button`
     border: none;
     margin-bottom: 1rem;
     font-weight: 600;
+    &:hover{
+    cursor: pointer;
+  }
 `;
 
 const CancelButton = styled.button`
@@ -75,6 +81,9 @@ const CancelButton = styled.button`
     border: none;
     margin-bottom: 1rem;
     font-weight: 600;
+    &:hover{
+    cursor: pointer;
+  }
 `;
 
 const CancelDiv = styled.div`
