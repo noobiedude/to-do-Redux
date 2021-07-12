@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { removeCompletedTodos } from "../features/todo/todoSlice";
 import DeleteSVG from '../delete.svg';
 
-const DeleteModal = ({ setShowDeleteModal }) => {
+const DeleteModal = ({ setShowDeleteModal, showAlerts, setShowAlerts }) => {
     const todos = useSelector((state) => state.todo.value);
     let numCompletedTodos = useSelector((state) => state.todo.completeToDos);
     const dispatch = useDispatch();
@@ -19,7 +19,7 @@ const DeleteModal = ({ setShowDeleteModal }) => {
 
             <ModalTitle>Are you sure about that?</ModalTitle>
             <TextParagraph>Completed tasks will be removed</TextParagraph>
-            <RemoveButton onClick={(e) => {dispatch(removeCompletedTodos({idx: todos.length - numCompletedTodos, count: numCompletedTodos})); setShowDeleteModal(false)}}>Remove</RemoveButton>
+            <RemoveButton onClick={(e) => {dispatch(removeCompletedTodos({idx: todos.length - numCompletedTodos, count: numCompletedTodos})); setShowDeleteModal(false); setShowAlerts({...showAlerts, deleteAll: true})}}>Remove</RemoveButton>
             <CancelButton onClick={(e) => {setShowDeleteModal(false)}}>Cancel</CancelButton>
 
         </ModalContent>
@@ -69,6 +69,9 @@ const CancelButton = styled.button`
     background: none;
     font-weight: 600;
     margin-bottom: 1rem;
+    &:hover{
+    cursor: pointer;
+  }
     
 `;
 
@@ -83,6 +86,9 @@ const RemoveButton = styled.button`
     border: none;
     padding: 1rem 2rem;
     margin-bottom: 1rem;
+    &:hover{
+    cursor: pointer;
+  }
 `;
 
 const TextParagraph = styled.p`
