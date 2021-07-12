@@ -4,11 +4,12 @@ import NavBar from './components/NavBar.Component';
 import ToDoList  from './components/toDoList.Component';
 import * as Colors from './res/colors';
 import { useSelector, useDispatch } from 'react-redux';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { add } from './features/todo/todoSlice';
 import Modal from './components/Modal.component';
 import DeleteIcon from '@material-ui/icons/Delete';
 import DeleteModal from './components/DeleteModal.component';
+import Alert from './components/Alert.component';
 
 const modalHeight = 350;
 
@@ -21,7 +22,20 @@ function App() {
   const [idxModal, setIdxModal] = useState(undefined);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   let numCompletedTodos = useSelector((state) => state.todo.completeToDos);
-  console.log(numCompletedTodos);
+  const [showAlerts, setShowAlerts] = useState({delete: false, edit: false, deleteAll: false});
+  const [justAttached, setJustAttached] = useState(false);
+  
+  useEffect(() => {
+    setJustAttached(true);
+    if (showAlerts.edit || showAlerts.delete || showAlerts.deleteAll) {
+      setTimeout(() => {
+        setJustAttached(false);
+        setTimeout(() => {
+          setShowAlerts({delete: false, edit: false, deleteAll: false});
+        }, 1000);
+      }, 3000);
+    }
+  }, [showAlerts])
   return (
     <div className="App">
       <AppContainer>
@@ -48,7 +62,9 @@ function App() {
             </div>}
          </AddToDoSection>
         
-         <ModalContainer className={`modal-container`}><Modal idxModal={idxModal} setShowModal={setShowModal} setIdxModal={setIdxModal}></Modal></ModalContainer>
+         <ModalContainer className={`modal-container`}>
+           <Modal idxModal={idxModal} setShowModal={setShowModal} setIdxModal={setIdxModal} setShowAlerts={setShowAlerts} showAlerts={showAlerts} setJustAttached={setJustAttached}></Modal>
+          </ModalContainer>
      
         <ToDoList setShowModal={setShowModal} setIdxModal={setIdxModal}></ToDoList>
         
@@ -77,8 +93,11 @@ function App() {
          </AddToDoSection>
         <ToDoList setShowModal={setShowModal} setIdxModal={setIdxModal}></ToDoList>
         {isSignedIn && numCompletedTodos !== 0 && <RemoveCompletedTasksButton onClick={(e) => {setShowDeleteModal(true)}}> <DeleteIcon style={{marginRight: `.2rem`}}/>Remove completed tasks</RemoveCompletedTasksButton>}
-        {showDeleteModal  && <DeleteModal setShowDeleteModal={setShowDeleteModal}></DeleteModal>}
+        {showDeleteModal  && <DeleteModal setShowDeleteModal={setShowDeleteModal} showAlerts={showAlerts} setShowAlerts={setShowAlerts}></DeleteModal>}
         
+      {showAlerts.edit && <Alert justAttached={justAttached} type={`edit`}></Alert>}
+      {showAlerts.delete && <Alert justAttached={justAttached} type={`delete`}></Alert>}
+      {showAlerts.deleteAll && <Alert justAttached={justAttached} type={`deleteAll`}></Alert>}
       </ToDoContainer>
       </Container>
       }
