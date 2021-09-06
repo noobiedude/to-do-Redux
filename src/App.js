@@ -3,13 +3,13 @@ import './App.css';
 import NavBar from './components/NavBar.Component';
 import ToDoList  from './components/toDoList.Component';
 import * as Colors from './res/colors';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
-import { add } from './features/todo/todoSlice';
 import Modal from './components/Modal.component';
 import DeleteIcon from '@material-ui/icons/Delete';
 import DeleteModal from './components/DeleteModal.component';
 import Alert from './components/Alert.component';
+import AddToDo from './components/AddToDo.component';
 
 const modalHeight = 350;
 
@@ -17,7 +17,6 @@ function App() {
   const isSignedIn = useSelector((state) => state.user.value.isSignedIn);
   const [showAddToDoInput, setShowAddToDoInput] = useState(false);
   const [inputToDoText, setInputToDoText] = useState('');
-  const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
   const [idxModal, setIdxModal] = useState(undefined);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -44,24 +43,8 @@ function App() {
        <Container> <BlurContainer />
       <NavBar setShowAddToDoInput={setShowAddToDoInput} setInputToDoText={setInputToDoText}></NavBar>
       <ToDoContainer>
-      
-        <TitleSection>
-          <Title>My todos</Title>
-          {isSignedIn && !showAddToDoInput && <AddToDo onClick={(e) => setShowAddToDoInput(true)}>+</AddToDo>}
-        </TitleSection>
-        <AddToDoSection> {showAddToDoInput && isSignedIn &&
-            <div>
-              <input 
-                    type='text' 
-                    placeholder="add your todo here!" 
-                    onChange={(e) => setInputToDoText(e.target.value)}
-                    value={inputToDoText}>
-                </input>
-                <button onClick={(e) => {dispatch(add({text: inputToDoText, isCompleted: false})); setInputToDoText(``); setShowAddToDoInput(false)}}>Add</button>
-                <button onClick={(e) => {setInputToDoText(``); setShowAddToDoInput(false)}}>Cancel</button>
-            </div>}
-         </AddToDoSection>
-        
+        {/* {isSignedIn && !showAddToDoInput && } */}
+        <AddToDo inputToDoText={inputToDoText} setInputToDoText={setInputToDoText} showAddToDoInput={showAddToDoInput} setShowAddToDoInput={setShowAddToDoInput} />
          <ModalContainer className={`modal-container`}>
            <Modal idxModal={idxModal} setShowModal={setShowModal} setIdxModal={setIdxModal} setShowAlerts={setShowAlerts} showAlerts={showAlerts} setJustAttached={setJustAttached}></Modal>
           </ModalContainer>
@@ -75,22 +58,8 @@ function App() {
       <Container>
       <NavBar setShowAddToDoInput={setShowAddToDoInput} setInputToDoText={setInputToDoText}></NavBar>
       <ToDoContainer>
-        <TitleSection>
-          <Title>My todos</Title>
-          {isSignedIn && !showAddToDoInput && <AddToDo onClick={(e) => setShowAddToDoInput(true)}>+</AddToDo>}
-        </TitleSection>
-        <AddToDoSection> {showAddToDoInput && isSignedIn &&
-            <div>
-              <input 
-                    type='text' 
-                    placeholder="add your todo here!" 
-                    onChange={(e) => setInputToDoText(e.target.value)}
-                    value={inputToDoText}>
-                </input>
-                <button onClick={(e) => {dispatch(add({text: inputToDoText, isCompleted: false})); setInputToDoText(``); setShowAddToDoInput(false)}}>Add</button>
-                <button onClick={(e) => {setInputToDoText(``); setShowAddToDoInput(false)}}>Cancel</button>
-            </div>}
-         </AddToDoSection>
+        {/* {isSignedIn && !showAddToDoInput && } */}
+        <AddToDo inputToDoText={inputToDoText} setInputToDoText={setInputToDoText} showAddToDoInput={showAddToDoInput} setShowAddToDoInput={setShowAddToDoInput} />
         <ToDoList setShowModal={setShowModal} setIdxModal={setIdxModal}></ToDoList>
         {isSignedIn && numCompletedTodos !== 0 && <RemoveCompletedTasksButton onClick={(e) => {setShowDeleteModal(true)}}> <DeleteIcon style={{marginRight: `.2rem`}}/>Remove completed tasks</RemoveCompletedTasksButton>}
         {showDeleteModal  && <DeleteModal setShowDeleteModal={setShowDeleteModal} showAlerts={showAlerts} setShowAlerts={setShowAlerts}></DeleteModal>}
@@ -111,6 +80,9 @@ const AppContainer = styled.div`
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  @media(min-width: 900px) {
+  margin: 0 4rem; 
+} 
 `;
 const Container = styled.div`
   
@@ -135,7 +107,7 @@ const BlurContainer = styled.div`
 `;
 
 const ToDoContainer = styled.div`
-  margin-top: 2rem;
+  margin-top: 1.5rem;
   padding: 0 1rem;
   background-color: ${Colors.BACKGROUND_COLOR_MAIN};
   border-radius: 16px 16px 0 0;
@@ -145,44 +117,29 @@ const ToDoContainer = styled.div`
   padding-bottom: 1rem;
   display: flex;
   flex-direction: column;
+  border-top: 6px solid ${Colors.NAV_BAR_GREEN};
+  overflow-x: hidden;
+  /* transform: translateX(0); //for position fixed to work in alert component   */
 `;
 
-const Title = styled.p`
-  font-size: 1.5rem;
-`;
 
-const TitleSection = styled.section`
-  display: flex;
-  justify-content: space-between;
-
-`;
-
-const AddToDo = styled.button`
-  border-radius: 100%;
-  height: 60px;
-  width: 60px;
-  margin-top: 1rem;
-  background-color: #C4C4C4;
-  border: none;
-  font-size: 2rem;
-  &:hover{
-    cursor: pointer;
-  }
-`;
-
-const AddToDoSection = styled.section`
-  margin: 1rem 0;
-`;
 
 const ModalContainer = styled.div`
   position: fixed;
   left: 0;
   bottom: 0;
+  right: 0;
+  @media(min-width: 900px) {
+  left: 4rem;
+  bottom: 0;
+  right: 4rem;
+  
+} 
   height: ${modalHeight}px;
   background-color: ${Colors.MODAL_GREEN};
   z-index: 10;
-  width: 100%;
   display: flex;
+ 
 `;
 
 const RemoveCompletedTasksButton = styled.button`

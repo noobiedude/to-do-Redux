@@ -7,11 +7,11 @@ const Alert = ({ justAttached, type }) => {
   const getAlertText = (type) => {
       switch(type){
             case `edit`:
-                return `To do edited!`;
+                return `Idea edited!`;
             case `delete`:
-                return `To do deleted!`;
+                return `Idea deleted!`;
             case `deleteAll`:
-                return `Completed tasks deleted!`;
+                return `Completed plan deleted!`;
             default:
                 break;
         
@@ -55,11 +55,13 @@ const slideOut = keyframes`
 const AlertContainer = styled.div`
   position: fixed;
   right: 1rem;
-  bottom: 1rem;
+  @media(min-width: 900px) {
+    right: 5rem;
+  } 
+  bottom: .5rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: green;
   padding: 0rem 1.5rem;
   box-sizing: border-box;
   border-radius: 8px;
@@ -67,7 +69,7 @@ const AlertContainer = styled.div`
   color: white;
   animation: ${slideIn} 1s ease;
   animation: 1s ${(props) => (props.justAttached ? slideIn : slideOut)} ease;
-  background-color: ${Colors.DARK_GREEN};
+  background-color: ${Colors.NAV_BAR_GREEN};
 `;
 
 export default Alert;

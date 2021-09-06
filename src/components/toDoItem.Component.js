@@ -11,7 +11,7 @@ const ToDoItem = ({ todo, idx, id, setShowModal, setIdxModal, isModal, text, set
     const completedToDos = useSelector((state) => state.todo.completeToDos);
 
     return(
-        <ToDoContainer isCompleted={todo.isCompleted} borderColor={Colors.COMPLETED_GREEN}>
+        <ToDoContainer isCompleted={todo.isCompleted} borderColor={Colors.NAV_BAR_GREEN}>
             {todo.isCompleted && <CompletedDiv>Completed</CompletedDiv>}
             <ToDoText>
             {isModal?
@@ -65,7 +65,7 @@ const CompletedDiv = styled.div`
     left: 0;
     top: 0;
     font-size: .8rem;
-    background-color: ${Colors.COMPLETED_GREEN};
+    background-color: ${Colors.NAV_BAR_GREEN};
     color: ${Colors.WHITE};
     border-radius: 8px 8px 8px 0;
     padding: 0 1rem;
@@ -74,9 +74,12 @@ const CompletedDiv = styled.div`
 const CompleteButton = styled.button`
     height: 3rem;
     border-radius: 0 8px 8px 0;
-    background-color: ${Colors.COMPLETED_GREEN};
+    background-color: ${Colors.NAV_BAR_GREEN};
     color: ${Colors.WHITE};
     border: none;
+    &:hover{
+    cursor: pointer;
+  }
     
 `;
 
@@ -89,6 +92,7 @@ const ToDoInput = styled.input`
 
 const ToDoP = styled.p`
     flex: 1;
+    word-break: break-all;
 `;
 export default ToDoItem;
 

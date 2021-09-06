@@ -25,7 +25,7 @@ const NavBar = ({ setShowAddToDoInput, setInputToDoText }) => {
     return(
         <Container>
         <HamburgerDiv><MenuIcon style={{ color: `${Colors.WHITE}`}}/></HamburgerDiv>
-        <TitleDiv>Todoist</TitleDiv>
+        <TitleDiv>MyList</TitleDiv>
         {isSignedIn ? 
         <LogoutButton  onClick={(e) => {setInputToDoText(``); setShowAddToDoInput(false); dispatch(signOut())}}>Log Out</LogoutButton> 
         : 

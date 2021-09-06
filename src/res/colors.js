@@ -1,4 +1,4 @@
-const BACKGROUND_COLOR_MAIN = `#EDECF3`;
+const BACKGROUND_COLOR_MAIN = `#F8F8F8`;
 const LIGHT_BLUE = `#63d2ff`;
 const DARK_BLUE = `#2081c3`;
 const GREEN = `#1cfeba`;
