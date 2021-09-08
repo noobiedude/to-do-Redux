@@ -11,7 +11,7 @@ const Modal = ({ idxModal, setShowModal, setIdxModal, setShowAlerts, showAlerts,
     const [text, setText] = useState(todo.text);
     return(
         <Container>
-        <ModalInfo>You have selected the following todo:</ModalInfo>
+        <ModalInfo>You have selected:</ModalInfo>
         <ToDoItem todo={todo} idx={idxModal} setShowModal={setShowModal} isModal={true} text={text} setText={setText}></ToDoItem>
         <ModalInfo marginTop={`-0.5rem`}>What do you want to do?</ModalInfo>
         <EditButton onClick={e => {dispatch(edit({idx: idxModal, todo, editedToDo: text})); setShowModal(false); setIdxModal(undefined); setShowAlerts({...showAlerts, edit: true})}}>Edit</EditButton>
